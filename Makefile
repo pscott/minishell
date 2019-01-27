@@ -6,7 +6,7 @@
 #    By: pscott <pscott@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/01/26 18:25:41 by pscott            #+#    #+#              #
-#    Updated: 2019/01/27 13:24:31 by pscott           ###   ########.fr        #
+#    Updated: 2019/01/27 17:41:53 by pscott           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -44,11 +44,15 @@ libft/libft.a:
 	$(MAKE) -C libft -j
 
 d: all
-	@./$(NAME) $(OPT)
+	@./$(NAME)
 
 val:
 	@$(COMP) -o $(NAME) $(MINI) -g
 	valgrind --leak-check=full ./$(NAME)
+
+fsa:
+	@$(COMP) -o $(NAME) $(MINI) -fsanitize=address -g3
+	@./$(NAME)
 
 $(NAME): $(OBJS) libft/libft.a Makefile
 	$(COMP) -o $(NAME) $(MINI)
