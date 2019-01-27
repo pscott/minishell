@@ -6,7 +6,7 @@
 /*   By: pscott <pscott@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/27 12:04:12 by pscott            #+#    #+#             */
-/*   Updated: 2019/01/27 12:25:52 by pscott           ###   ########.fr       */
+/*   Updated: 2019/01/27 18:30:10 by pscott           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,7 @@ char	*ft_realloc(void *data, size_t current_data_size,
 
 	if (current_data_size + append_size < *current_malloc_size)
 		return (data);
-	if (!(res = ft_strnew(*current_malloc_size * REALLOC_FACTOR)))
-		return (NULL);
+	res = ft_strnew(*current_malloc_size * REALLOC_FACTOR)
 	*current_malloc_size *= REALLOC_FACTOR;
 	res = (char*)ft_memcpy((void*)res, (void*)data, current_data_size);
 	ft_memdel((void*)&data);

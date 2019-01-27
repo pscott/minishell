@@ -6,7 +6,7 @@
 #    By: pscott <pscott@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/01/26 18:25:41 by pscott            #+#    #+#              #
-#    Updated: 2019/01/27 17:41:53 by pscott           ###   ########.fr        #
+#    Updated: 2019/01/27 18:33:44 by pscott           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,7 @@ SRCDIR			:= srcs
 UNIT_TESTDIR	:= $(SRCDIR)/unit_test
 ERRDIR			:= $(SRCDIR)/errors
 
-SRC			:= main.c
+SRC			:= main.c utils.c exit.c
 UNIT_TEST	:= returns.c
 ERR			:= errors.c
 

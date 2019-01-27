@@ -6,7 +6,7 @@
 /*   By: pscott <pscott@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/26 18:21:36 by pscott            #+#    #+#             */
-/*   Updated: 2019/01/27 12:47:01 by pscott           ###   ########.fr       */
+/*   Updated: 2019/01/27 18:35:20 by pscott           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,4 +24,6 @@
 
 # define INIT_SIZE 1
 
+void	print_prompt(void);
+int		should_i_exit(char **argv);
 #endif

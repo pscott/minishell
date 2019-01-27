@@ -6,7 +6,7 @@
 /*   By: pscott <pscott@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/27 12:47:17 by pscott            #+#    #+#             */
-/*   Updated: 2019/01/27 17:29:03 by pscott           ###   ########.fr       */
+/*   Updated: 2019/01/27 18:35:46 by pscott           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,11 @@ int		error_fork(void)
 	exit(1);
 }
 
-int		error_mem(void)
+char	*error_mem(void)
 {
 	ft_putstr_fd("Error: failed to allocate memory.\n", 2);
 	exit(1);
+	return (NULL);
 }
 
 int		error_read(void)
