@@ -1,19 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   unit_testing.h                                     :+:      :+:    :+:   */
+/*   unit_test.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pscott <pscott@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/01/27 12:40:37 by pscott            #+#    #+#             */
-/*   Updated: 2019/01/27 13:29:58 by pscott           ###   ########.fr       */
+/*   Created: 2019/01/27 21:41:00 by pscott            #+#    #+#             */
+/*   Updated: 2019/01/27 21:41:01 by pscott           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef UNIT_TESTING_H
-# include <unistd.h>
-# define UNIT_TESTING_H
+#ifndef UNIT_TEST_H
+# define UNIT_TEST_H
 
+# include <unistd.h>
 # define MALLOC return_null()
 # define FORK fork()
 

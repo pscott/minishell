@@ -6,13 +6,13 @@
 /*   By: pscott <pscott@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/27 18:33:12 by pscott            #+#    #+#             */
-/*   Updated: 2019/01/27 18:42:04 by pscott           ###   ########.fr       */
+/*   Updated: 2019/01/27 21:40:16 by pscott           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "errors.h"
 
-int		is_num(char *str)
+static int		is_num(char *str)
 {
 	if (!str)
 		return (1);
@@ -25,21 +25,7 @@ int		is_num(char *str)
 	return (1);
 }
 
-int		error_arguments(void)
-{
-	ft_putstr_fd("minishell: exit: too many arguments\n", 2);
-	return (1);
-}
-
-void	error_numeric(char *str)
-{
-	ft_putstr_fd("minishell: ", 2);
-	ft_putstr_fd(str, 2);
-	ft_putstr_fd(": numeric argument required\n", 2);
-	exit(-1);
-}
-
-int		should_i_exit(char **argv)
+int				should_i_exit(char **argv)
 {
 	int i;
 
@@ -48,8 +34,7 @@ int		should_i_exit(char **argv)
 	i = 0;
 	if (*argv && ft_strcmp(argv[i], "exit") == 0)
 	{
-		ft_putstr_fd(argv[i], 2);
-		ft_putstr_fd("\n", 2);
+		ft_putstr_fd("exit\n", 2);
 		i++;
 		if (argv[i])
 		{

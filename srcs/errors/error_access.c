@@ -1,47 +1,41 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   errors.c                                           :+:      :+:    :+:   */
+/*   error_access.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pscott <pscott@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/01/27 12:47:17 by pscott            #+#    #+#             */
-/*   Updated: 2019/01/27 21:08:40 by pscott           ###   ########.fr       */
+/*   Created: 2019/01/27 21:35:18 by pscott            #+#    #+#             */
+/*   Updated: 2019/01/27 21:38:45 by pscott           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "errors.h"
 
-int		error_fork(void)
-{
-	ft_putstr_fd("Error: could no fork\n", 2);
-	exit(1);
-}
-
-char	*error_mem(void)
-{
-	ft_putstr_fd("Error: failed to allocate memory\n", 2);
-	exit(1);
-	return (NULL);
-}
-
-void	error_read(void)
-{
-	ft_putstr_fd("Error: failed to read stdin\n", 2);
-	exit(1);
-}
-
-void	error_noent(char *str)
-{
-	ft_putstr_fd("minishell: ", 2);
-	ft_putstr_fd(str, 2);
-	ft_putstr_fd(": No such file or directory\n", 2);
-	exit(1);
-}
-
-void	error_exist(char *cmd)
+void	error_cmd_not_found(char *cmd)
 {
 	ft_putstr_fd("minishell: ", 2);
 	ft_putstr_fd(cmd, 2);
-	ft_putstr_fd(": No such file or directory\n", 2);
+	ft_putstr_fd(": command not found\n", 2);
+}
+
+void	error_exec(char *cmd)
+{
+	ft_putstr_fd("minishell: ", 2);
+	ft_putstr_fd(cmd, 2);
+	ft_putstr_fd(": could not execute\n", 2);
+}
+
+int		error_arguments(void)
+{
+	ft_putstr_fd("minishell: exit: too many arguments\n", 2);
+	return (-1);
+}
+
+void	error_numeric(char *str)
+{
+	ft_putstr_fd("minishell: ", 2);
+	ft_putstr_fd(str, 2);
+	ft_putstr_fd(": numeric argument required\n", 2);
+	exit(-1);
 }
