@@ -6,7 +6,7 @@
 #    By: pscott <pscott@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/01/26 18:25:41 by pscott            #+#    #+#              #
-#    Updated: 2019/01/27 21:37:25 by pscott           ###   ########.fr        #
+#    Updated: 2019/01/28 14:48:37 by pscott           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -46,7 +46,7 @@ libft/libft.a:
 d: all
 	@./$(NAME)
 
-val:
+val: all
 	@$(COMP) -o $(NAME) $(MINI) -g
 	valgrind --leak-check=full ./$(NAME)
 

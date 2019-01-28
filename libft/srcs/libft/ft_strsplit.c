@@ -6,14 +6,25 @@
 /*   By: pscott <pscott@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/08 12:10:44 by pscott            #+#    #+#             */
-/*   Updated: 2018/11/11 13:30:38 by pscott           ###   ########.fr       */
+/*   Updated: 2019/01/28 16:59:57 by pscott           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include <stdlib.h>
 
-static size_t	how_many(char const *s, char c)
+static int		is_in(char h, char *str)
+{
+	while (*str)
+	{
+		if (h == *str)
+			return (1);
+				str++;
+	}
+	return (0);
+}
+
+static size_t	how_many(char const *s, char *c)
 {
 	size_t	i;
 	size_t	nb;
@@ -24,7 +35,7 @@ static size_t	how_many(char const *s, char c)
 	on_word = 0;
 	while (s[i])
 	{
-		if (s[i] == c)
+		if (is_in(s[i], c))
 			on_word = 0;
 		else
 		{
@@ -39,17 +50,17 @@ static size_t	how_many(char const *s, char c)
 	return (nb);
 }
 
-static	size_t	how_long(char const *s, char c, size_t *j)
+static	size_t	how_long(char const *s, char *c, size_t *j)
 {
 	size_t	nb;
 
 	nb = 0;
-	while (s[*j + nb] && s[*j + nb] != c)
+	while (s[*j + nb] && !is_in(s[*j + nb], c))
 		nb++;
 	return (nb);
 }
 
-char			**ft_strsplit(char const *s, char c)
+char			**ft_strsplit(char const *s, char *c)
 {
 	char	**tab;
 	size_t	i;

@@ -5,83 +5,99 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: pscott <pscott@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/01/27 21:33:59 by pscott            #+#    #+#             */
-/*   Updated: 2019/01/27 21:34:45 by pscott           ###   ########.fr       */
+/*   Created: 2019/01/28 15:24:33 by pscott            #+#    #+#             */
+/*   Updated: 2019/01/28 17:01:05 by pscott           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static char	*cmd_in_path(char *cmd, char *env_path)
+static void	check_access_in_curr_dir(char *possible_path)
 {
-	char	**paths;
-	char	*possible_path;
-	int		i;
-
-	paths = ft_strsplit(env_path, ':');
-	i = 0;
-	while (paths[i])
+	if (access(possible_path, F_OK) == 0)
 	{
-		possible_path = append_path(paths[i], cmd);
-		if (access(possible_path, F_OK) == 0)
-		{
-			if (access(possible_path, X_OK) == 0)
-			{
-				ft_memdel((void*)&cmd);
-				return (possible_path);
-			}
-			else
-				error_exec(cmd);
-		}
-		i++;
+		if (access(possible_path, X_OK) == 0)
+			return ;
+		error_exec(possible_path);
 	}
-	error_cmd_not_found(cmd);
-	return (NULL);
+	else
+		error_cmd_not_found(possible_path);
+	*possible_path = 0;
 }
 
-static char	*get_cmd_path(char *cmd, char **env)
+static void	cmd_in_path(char *cmd, char *env_path, char *possible_path)
+{
+	char	**paths;
+	int		i;
+
+	paths = ft_strsplit(env_path, ":");
+	i = -1;
+	while (paths[++i])
+	{
+		join_path(possible_path, paths[i], cmd);
+		if (access(possible_path, F_OK) == 0)
+		{
+			if (access(possible_path, X_OK) != 0)
+			{
+				error_exec(cmd);
+				*possible_path = 0;
+			}
+			free_strarray(paths);
+			return ;
+		}
+	}
+	free_strarray(paths);
+	ft_strncpy(possible_path, cmd, ft_strlen(cmd) + 1);
+	check_access_in_curr_dir(possible_path);
+}
+
+static void	get_path(char *cmd, char **env, char *possible_path)
 {
 	int i;
+	int	cmd_len;
 
-	if (!env)
-		return (cmd);
-	if (*cmd == '/')
-		return (cmd);
+	cmd_len = ft_strlen(cmd);
+	if (!env || *cmd == '/')
+	{
+		ft_strncpy(possible_path, cmd, cmd_len + 1);
+		return ;
+	}
 	i = 0;
 	while (env[i])
 	{
 		if (ft_strncmp(env[i], "PATH=", 5) == 0)
 		{
-			return (cmd_in_path(cmd, env[i]));
+			cmd_in_path(cmd, env[i], possible_path);
+			return ;
 		}
 		i++;
 	}
-	return (cmd);
+	ft_strncpy(possible_path, cmd, cmd_len + 1);
 }
 
-void		parse_cmd(char *cmd, char **env)
+void		handle_cmd(char **cmd_argv, char **env)
 {
-	char	**argv;
-	int		i;
+	char	possible_path[PATH_MAX];
 	pid_t	child_pid;
 
-	if (!cmd || *cmd == 0)
+	if (should_i_exit(cmd_argv) < 0)
 		return ;
-	argv = ft_strsplit(cmd, ' ');
-	if (should_i_exit(argv) == -1)
-		return ;
-	i = 0;
-	child_pid = fork();
-	if (child_pid == 0)
+	get_path(cmd_argv[0], env, possible_path);
+	if (*possible_path)
 	{
-		if (!(argv[0] = get_cmd_path(argv[0], env)))
-			exit(-1);
-		execve(argv[0], argv, env);
-		ERR_NOENT(*argv);
+		child_pid = fork();
+		if (child_pid == 0)
+		{
+			if (*possible_path == 0)
+				clean_exit(cmd_argv, -1);
+			execve(possible_path, cmd_argv, env);
+			ft_memdel((void*)cmd_argv);
+			ERR_NOENT(possible_path);
+		}
+		else if (child_pid < 0)
+			ERR_FORK;
+		else
+			wait(&child_pid);
 	}
-	else if (child_pid == -1)
-		ERR_FORK;
-	else
-		wait(&child_pid);
-	free_strarray(argv);
+	free_strarray(cmd_argv);
 }

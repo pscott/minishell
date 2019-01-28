@@ -6,7 +6,7 @@
 /*   By: pscott <pscott@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/26 18:21:36 by pscott            #+#    #+#             */
-/*   Updated: 2019/01/27 21:38:20 by pscott           ###   ########.fr       */
+/*   Updated: 2019/01/28 16:01:08 by pscott           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,19 +18,21 @@
 # include <sys/stat.h>
 # include <dirent.h>
 # include <sys/wait.h>
+# include <sys/syslimits.h>
 # include "ft_printf.h"
 # include "unit_test.h"
 # include "errors.h"
 
-# define INIT_SIZE 4
+# define INIT_MALL_SIZE 8
 
 void	print_prompt(void);
 void	print_env(char **env);
 void	print_exit(void);
 
 int		should_i_exit(char **argv);
-void	parse_cmd(char *cd, char **env);
-char	*append_path(char *origin, char *append);
+void	clean_exit(char **cmd_argv, int exit_value);
+void	handle_cmd(char **cd, char **env);
+void	join_path(char *dst, char *origin, char *append);
 void	free_strarray(char **argv);
 
 #endif

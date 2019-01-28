@@ -6,16 +6,16 @@
 /*   By: pscott <pscott@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/27 18:33:12 by pscott            #+#    #+#             */
-/*   Updated: 2019/01/27 21:40:16 by pscott           ###   ########.fr       */
+/*   Updated: 2019/01/28 15:41:39 by pscott           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "errors.h"
+#include "minishell.h"
 
 static int		is_num(char *str)
 {
 	if (!str)
-		return (1);
+		return (0);
 	while (*str)
 	{
 		if (!ft_isdigit(*str))
@@ -25,27 +25,35 @@ static int		is_num(char *str)
 	return (1);
 }
 
-int				should_i_exit(char **argv)
+void			clean_exit(char **cmd_argv, int ext_value)
+{
+	free_strarray(cmd_argv);
+	exit(ext_value);
+}
+
+int				should_i_exit(char **cmd_argv)
 {
 	int i;
 
-	if (!argv)
+	if (!cmd_argv)
 		return (0);
 	i = 0;
-	if (*argv && ft_strcmp(argv[i], "exit") == 0)
+	if (*cmd_argv && ft_strcmp(cmd_argv[i], "exit") == 0)
 	{
 		ft_putstr_fd("exit\n", 2);
-		i++;
-		if (argv[i])
+		if (cmd_argv[++i])
 		{
-			if (is_num(argv[i]))
+			if (is_num(cmd_argv[i]))
 			{
-				if (argv[i + 1])
+				if (cmd_argv[i + 1])
+				{
+					free_strarray(cmd_argv);
 					return (error_arguments());
-				exit(ft_atoi(argv[i]));
+				}
+				exit(ft_atoi(cmd_argv[i]));
 			}
-			if (!is_num(argv[i]))
-				error_numeric(argv[i]);
+			else
+				error_numeric(cmd_argv[i]);
 		}
 		exit(0);
 	}
