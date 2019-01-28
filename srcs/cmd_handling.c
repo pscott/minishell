@@ -6,7 +6,7 @@
 /*   By: pscott <pscott@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/28 15:24:33 by pscott            #+#    #+#             */
-/*   Updated: 2019/01/28 18:27:27 by pscott           ###   ########.fr       */
+/*   Updated: 2019/01/28 19:01:06 by pscott           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ static void	get_path(char *cmd, char **env, char *possible_path)
 	int	cmd_len;
 
 	cmd_len = ft_strlen(cmd);
-	if (!env || *cmd == '/')
+	if (!env || slash_in_cmd(cmd))
 	{
 		ft_strncpy(possible_path, cmd, cmd_len + 1);
 		return ;
