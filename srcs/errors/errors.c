@@ -6,7 +6,7 @@
 /*   By: pscott <pscott@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/27 12:47:17 by pscott            #+#    #+#             */
-/*   Updated: 2019/01/27 21:08:40 by pscott           ###   ########.fr       */
+/*   Updated: 2019/01/28 19:15:09 by pscott           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,6 @@ void	error_noent(char *str)
 	ft_putstr_fd("minishell: ", 2);
 	ft_putstr_fd(str, 2);
 	ft_putstr_fd(": No such file or directory\n", 2);
-	exit(1);
 }
 
 void	error_exist(char *cmd)
