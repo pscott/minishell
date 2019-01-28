@@ -6,7 +6,7 @@
 /*   By: pscott <pscott@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/28 15:24:33 by pscott            #+#    #+#             */
-/*   Updated: 2019/01/28 17:01:05 by pscott           ###   ########.fr       */
+/*   Updated: 2019/01/28 18:27:27 by pscott           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ void		handle_cmd(char **cmd_argv, char **env)
 	char	possible_path[PATH_MAX];
 	pid_t	child_pid;
 
-	if (should_i_exit(cmd_argv) < 0)
+	if (handle_builtin(cmd_argv, env) == 0)
 		return ;
 	get_path(cmd_argv[0], env, possible_path);
 	if (*possible_path)
@@ -91,7 +91,7 @@ void		handle_cmd(char **cmd_argv, char **env)
 			if (*possible_path == 0)
 				clean_exit(cmd_argv, -1);
 			execve(possible_path, cmd_argv, env);
-			ft_memdel((void*)cmd_argv);
+			free_strarray(cmd_argv);
 			ERR_NOENT(possible_path);
 		}
 		else if (child_pid < 0)
