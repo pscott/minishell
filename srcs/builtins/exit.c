@@ -6,7 +6,7 @@
 /*   By: pscott <pscott@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/27 18:33:12 by pscott            #+#    #+#             */
-/*   Updated: 2019/01/28 18:26:05 by pscott           ###   ########.fr       */
+/*   Updated: 2019/01/28 20:38:04 by pscott           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,13 +25,13 @@ static int		is_num(char *str)
 	return (1);
 }
 
-void			clean_exit(char **cmd_argv, int ext_value)
+void			clean_exit(char **cmd_argv, char **env, int ext_value)
 {
-	free_strarray(cmd_argv);
+	free_argv_env(cmd_argv, env);
 	exit(ext_value);
 }
 
-int				mini_exit(char **cmd_argv)
+int				mini_exit(char **cmd_argv, char **env)
 {
 	int i;
 
@@ -47,11 +47,11 @@ int				mini_exit(char **cmd_argv)
 				error_arguments();
 				return (0);
 			}
-			clean_exit(cmd_argv, ft_atoi(cmd_argv[i]));
+			clean_exit(cmd_argv, env, ft_atoi(cmd_argv[i]));
 		}
 		else
 			error_numeric(cmd_argv[i]);
 	}
-	clean_exit(cmd_argv, 0);
+	clean_exit(cmd_argv, env, 0);
 	return (1);
 }

@@ -6,7 +6,7 @@
 /*   By: pscott <pscott@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/27 21:41:00 by pscott            #+#    #+#             */
-/*   Updated: 2019/01/27 21:41:01 by pscott           ###   ########.fr       */
+/*   Updated: 2019/01/28 20:14:33 by pscott           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define UNIT_TEST_H
 
 # include <unistd.h>
-# define MALLOC return_null()
+# define MALLOC malloc
 # define FORK fork()
 
 void	*return_null(int size);

@@ -6,7 +6,7 @@
 /*   By: pscott <pscott@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/28 15:24:33 by pscott            #+#    #+#             */
-/*   Updated: 2019/01/28 19:18:37 by pscott           ###   ########.fr       */
+/*   Updated: 2019/01/29 13:10:29 by pscott           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,9 +92,9 @@ void		handle_cmd(char **cmd_argv, char **env)
 		if (child_pid == 0)
 		{
 			if (*possible_path == 0)
-				clean_exit(cmd_argv, -1);
+				clean_exit(cmd_argv, env, -1);
 			execve(possible_path, cmd_argv, env);
-			free_strarray(cmd_argv);
+			free_argv_env(cmd_argv, env);
 			ERR_NOENT(possible_path);
 		}
 		else if (child_pid < 0)
@@ -102,5 +102,5 @@ void		handle_cmd(char **cmd_argv, char **env)
 		else
 			wait(&child_pid);
 	}
-	free_strarray(cmd_argv);
+	free_argv_env(cmd_argv, env);
 }

@@ -6,7 +6,7 @@
 /*   By: pscott <pscott@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/27 18:18:02 by pscott            #+#    #+#             */
-/*   Updated: 2019/01/28 19:01:06 by pscott           ###   ########.fr       */
+/*   Updated: 2019/01/28 20:34:12 by pscott           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,4 +55,10 @@ int		slash_in_cmd(char *cmd)
 		cmd++;
 	}
 	return (0);
+}
+
+void	free_argv_env(char **cmd_argv, char **env)
+{
+	free_strarray(cmd_argv);
+	free_strarray(env);
 }

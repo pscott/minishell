@@ -6,7 +6,7 @@
 #    By: pscott <pscott@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/01/26 18:25:41 by pscott            #+#    #+#              #
-#    Updated: 2019/01/28 18:12:15 by pscott           ###   ########.fr        #
+#    Updated: 2019/01/28 19:37:55 by pscott           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,18 +19,21 @@ OBJDIR			:= objects
 SRCDIR			:= srcs
 UNIT_TESTDIR	:= $(SRCDIR)/unit_test
 ERRDIR			:= $(SRCDIR)/errors
+BUILTINDIR		:= $(SRCDIR)/builtins
 
-SRC			:= main.c utils.c exit.c cmd_handling.c print_helper.c builtin.c
+SRC			:= main.c utils.c cmd_handling.c print_helper.c
+BUILTIN		:= builtin.c exit.c env.c
 UNIT_TEST	:= returns.c
 ERR			:= errors.c error_access.c
 
 INCL	:= -I includes/ -I libft/includes
 
-LIBS	:= -L libft -lft
-SRCS	:= $(addprefix $(SRCDIR)/, $(SRC))
-ERRS	:= $(addprefix $(ERRDIR)/, $(ERR))
-U_TESTS	:= $(addprefix $(UNIT_TESTDIR)/, $(UNIT_TEST))
-MINI	:= $(SRCS) $(U_TESTS) $(ERRS)
+LIBS		:= -L libft -lft
+SRCS		:= $(addprefix $(SRCDIR)/, $(SRC))
+ERRS		:= $(addprefix $(ERRDIR)/, $(ERR))
+U_TESTS		:= $(addprefix $(UNIT_TESTDIR)/, $(UNIT_TEST))
+BUILTINS	:= $(addprefix $(BUILTINDIR)/, $(BUILTIN))
+MINI		:= $(SRCS) $(U_TESTS) $(ERRS) $(BUILTINS)
 
 OBJS	:= $(MINI:.c=.o)
 DEPS	:= includes/minishell.h includes/unit_test.h includes/errors.h
