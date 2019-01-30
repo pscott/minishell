@@ -46,6 +46,7 @@ void	read_stdin(char **cmd, char **env)
 	(void)env;
 	mall_size = INIT_MALL_SIZE;
 	i = 0;
+	buf = 0;
 	while ((ret = read(0, &buf, 1) > 0) && buf != '\n')
 	{
 		*cmd = ft_realloc((void*)*cmd, ft_strlen(*cmd), &mall_size, ret);
@@ -57,6 +58,7 @@ void	read_stdin(char **cmd, char **env)
 	else if (ret == 0)
 	{
 		ft_putstr_fd("exit\n", 2);
+		free_cmd_env(*cmd, env);
 		exit(0);
 	}
 	else if (ret < 0)

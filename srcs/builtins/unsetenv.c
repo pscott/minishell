@@ -6,7 +6,7 @@
 /*   By: pscott <pscott@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/30 17:01:58 by pscott            #+#    #+#             */
-/*   Updated: 2019/01/30 18:08:22 by pscott           ###   ########.fr       */
+/*   Updated: 2019/01/30 18:19:26 by pscott           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,12 +40,12 @@ void	pop_env(char **env, unsigned int j)
 	unsigned int	i;
 
 	i = 0;
+	ft_memdel((void*)&env[j]);
 	while (env[j])
 	{
 		env[j] = env[j + 1];
 		j++;
 	}
-	free(env[j]);
 }
 
 void	delete_envs(char **argv, char **env)
