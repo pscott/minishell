@@ -1,12 +1,11 @@
-/* ************************************************************************** */
-/*                                                                            */
+/* ************************************************************************** */ /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pscott <pscott@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/28 17:01:16 by pscott            #+#    #+#             */
-/*   Updated: 2019/01/29 13:10:29 by pscott           ###   ########.fr       */
+/*   Updated: 2019/01/29 19:45:02 by pscott           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +13,7 @@
 
 void	free_cmd_env(char *cmd, char **env)
 {
-	ft_memdel((void*)&cmd);
+	ft_memdel((void*)cmd);
 	free_strarray(env);
 }
 
@@ -52,19 +51,15 @@ void	read_stdin(char **cmd, char **env)
 		*cmd = ft_realloc((void*)*cmd, ft_strlen(*cmd), &mall_size, ret);
 		ft_strncat((*cmd + i++), &buf, 1);
 	}
-	if (ret < 0)
-		ERR_READ;
-	else if (!(**cmd))
+	if (buf == '\n')
+		return ;
+	else if (ret == 0)
 	{
-		free_cmd_env(*cmd, env);
-		if (ret == 0)
-		{
-			ft_putstr_fd("exit\n", 2);
-			exit(0);
-		}
+		ft_putstr_fd("exit\n", 2);
+		exit(0);
 	}
-	else if (ret == 0) // manage ctrl + D
-		write(1, "\n", 1);
+	else if (ret < 0)
+		ERR_READ;
 }
 
 int		main(int argc, char **argv, char **env)
@@ -81,8 +76,11 @@ int		main(int argc, char **argv, char **env)
 		cmd = ft_strnew(INIT_MALL_SIZE);
 		print_prompt();
 		read_stdin(&cmd, mini_env);//mini_env
-		if (!cmd)
+		if (!*cmd)
+		{
+			free_cmd_env(cmd, mini_env);
 			continue ;
+		}
 		cmd_argv = ft_strsplit(cmd, " 	");
 		ft_memdel((void*)&cmd);
 		handle_cmd(cmd_argv, mini_env);//mini_env

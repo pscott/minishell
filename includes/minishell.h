@@ -6,7 +6,7 @@
 /*   By: pscott <pscott@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/26 18:21:36 by pscott            #+#    #+#             */
-/*   Updated: 2019/01/28 20:38:05 by pscott           ###   ########.fr       */
+/*   Updated: 2019/01/30 15:47:28 by pscott           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,11 +33,13 @@ void	print_exit(void);
  * BUILTINS
 */
 
+void	execute_command(char *possible_path, char **argv, char **env);
 int		mini_exit(char **argv, char **env);
 int		mini_env(char **argv, char **env);
 
 void	clean_exit(char **cmd_argv, char **env, int exit_value);
 void	handle_cmd(char **cd, char **env);
+void	get_path(char *cmd, char **env, char *posibble_path);
 void	join_path(char *dst, char *origin, char *append);
 void	free_strarray(char **argv);
 
