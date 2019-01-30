@@ -51,6 +51,7 @@ void	read_stdin(char **cmd, char **env)
 		*cmd = ft_realloc((void*)*cmd, ft_strlen(*cmd), &mall_size, ret);
 		ft_strncat((*cmd + i++), &buf, 1);
 	}
+	ft_printf("OUI\n");
 	if (buf == '\n')
 		return ;
 	else if (ret == 0)
@@ -66,24 +67,26 @@ int		main(int argc, char **argv, char **env)
 {
 	char	*cmd;
 	char	**cmd_argv;
-	char	**mini_env;
+	char	***mini_env;
+	char	**copy_env;
 
 	(void)argc;
 	(void)argv;
+	copy_env = cpy_2d_strarray(env);
+	mini_env = &copy_env;
 	while (1)
 	{
-		mini_env = cpy_2d_strarray(env);
 		cmd = ft_strnew(INIT_MALL_SIZE);
 		print_prompt();
-		read_stdin(&cmd, mini_env);//mini_env
+		read_stdin(&cmd, *mini_env);
 		if (!*cmd)
 		{
-			free_cmd_env(cmd, mini_env);
+			ft_memdel((void*)&cmd);
 			continue ;
 		}
 		cmd_argv = ft_strsplit(cmd, " 	");
 		ft_memdel((void*)&cmd);
-		handle_cmd(cmd_argv, mini_env);//mini_env
+		handle_cmd(cmd_argv, mini_env);
 	}
 	return (0);
 }

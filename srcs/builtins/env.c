@@ -6,7 +6,7 @@
 /*   By: pscott <pscott@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/28 19:38:53 by pscott            #+#    #+#             */
-/*   Updated: 2019/01/30 15:25:45 by pscott           ###   ########.fr       */
+/*   Updated: 2019/01/30 17:37:07 by pscott           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,20 +105,6 @@ void	modify_existing_env(char *str, char **env)
 	}
 }
 
-void	add_envs(char **argv, char **new_env)
-{
-	unsigned int	i;
-
-	i = 0;
-	while ((is_env_setting(argv[++i])))
-	{
-		if (setting_is_in_env(argv[i], new_env) == 0)
-			append_new_env(argv[i], new_env);
-		else
-			modify_existing_env(argv[i], new_env);
-	}
-}
-
 void	execute_command(char *possible_path, char **argv, char **env)
 {
 	pid_t	child_pid;
@@ -175,6 +161,5 @@ int		mini_env(char **argv, char **env)
 	else
 		execute_command(possible_path, &(argv[settings + 1]), new_env);
 	free_argv_env(argv, new_env);
-	free_strarray(env);
 	return (0);
 }

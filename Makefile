@@ -6,7 +6,7 @@
 #    By: pscott <pscott@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/01/26 18:25:41 by pscott            #+#    #+#              #
-#    Updated: 2019/01/28 19:37:55 by pscott           ###   ########.fr        #
+#    Updated: 2019/01/30 17:20:20 by pscott           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,7 @@ ERRDIR			:= $(SRCDIR)/errors
 BUILTINDIR		:= $(SRCDIR)/builtins
 
 SRC			:= main.c utils.c cmd_handling.c print_helper.c
-BUILTIN		:= builtin.c exit.c env.c
+BUILTIN		:= builtin.c exit.c env.c setenv.c unsetenv.c
 UNIT_TEST	:= returns.c
 ERR			:= errors.c error_access.c
 

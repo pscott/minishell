@@ -6,7 +6,7 @@
 /*   By: pscott <pscott@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/28 15:24:33 by pscott            #+#    #+#             */
-/*   Updated: 2019/01/30 15:26:02 by pscott           ###   ########.fr       */
+/*   Updated: 2019/01/30 17:55:33 by pscott           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,14 +79,14 @@ void	get_path(char *cmd, char **env, char *possible_path)
 	ft_strncpy(possible_path, cmd, cmd_len + 1);
 }
 
-void		handle_cmd(char **cmd_argv, char **env)
+void		handle_cmd(char **cmd_argv, char ***env)
 {
 	char	possible_path[PATH_MAX];
 
 	*possible_path = 0;
 	if (handle_builtin(cmd_argv, env) == 0)
 		return ;
-	get_path(cmd_argv[0], env, possible_path);
-	execute_command(possible_path, cmd_argv, env);
-	free_argv_env(cmd_argv, env);
+	get_path(cmd_argv[0], *env, possible_path);
+	execute_command(possible_path, cmd_argv, *env);
+	free_strarray(cmd_argv);
 }

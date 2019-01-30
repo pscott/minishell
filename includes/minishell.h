@@ -6,7 +6,7 @@
 /*   By: pscott <pscott@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/26 18:21:36 by pscott            #+#    #+#             */
-/*   Updated: 2019/01/30 15:47:28 by pscott           ###   ########.fr       */
+/*   Updated: 2019/01/30 17:53:20 by pscott           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,15 +35,32 @@ void	print_exit(void);
 
 void	execute_command(char *possible_path, char **argv, char **env);
 int		mini_exit(char **argv, char **env);
+int		mini_setenv(char **argv, char ***env);
 int		mini_env(char **argv, char **env);
+int		mini_unsetenv(char **argv, char **env);
+
+
+/*
+** env
+*/
+
+int				is_env_setting(char *str);
+unsigned int	get_var_len(char *str);
+int				setting_is_in_env(char *str, char **env);
+unsigned int	how_many_new_env_var(char **argv, char **env,
+		unsigned int *settings);
+void			append_new_env(char *str, char **env);
+void			modify_existing_env(char *str, char **env);
+void			add_envs(char **argv, char **env);
+char			**parse_env(char **argv, char **env, unsigned int *settings);
 
 void	clean_exit(char **cmd_argv, char **env, int exit_value);
-void	handle_cmd(char **cd, char **env);
+void	handle_cmd(char **cd, char ***env);
 void	get_path(char *cmd, char **env, char *posibble_path);
 void	join_path(char *dst, char *origin, char *append);
 void	free_strarray(char **argv);
 
-int		handle_builtin(char **cmd_argv, char **env);
+int		handle_builtin(char **cmd_argv, char ***env);
 
 int		slash_in_cmd(char *cmd);
 
