@@ -6,7 +6,7 @@
 /*   By: pscott <pscott@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/28 15:24:33 by pscott            #+#    #+#             */
-/*   Updated: 2019/01/31 18:02:08 by pscott           ###   ########.fr       */
+/*   Updated: 2019/01/31 20:22:28 by pscott           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int			check_access(char *path)
 	if (access(path, F_OK) == 0)
 	{
 		if (access(path, X_OK) != 0)
-			error_permi("./minishell", path);
+			error_permi("minishell", path);
 		return (1);
 	}
 	else
@@ -60,7 +60,7 @@ void		get_path(char *cmd, char **env, char *possible_path)
 		ft_strncpy(possible_path, cmd, ft_strlen(cmd) + 1);
 		if (!check_access(possible_path))
 		{
-			ERR_NOENT("./minishell", possible_path);
+			ERR_NOENT("minishell", possible_path);
 			*possible_path = 0;
 		}
 		return ;
