@@ -6,7 +6,7 @@
 /*   By: pscott <pscott@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/31 17:56:18 by pscott            #+#    #+#             */
-/*   Updated: 2019/01/31 18:00:00 by pscott           ###   ########.fr       */
+/*   Updated: 2019/01/31 20:56:03 by pscott           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,4 +32,10 @@ void	error_not_set(char *key)
 	ft_putstr_fd("minishell: ", 2);
 	ft_putstr_fd(key, 2);
 	ft_putstr_fd(" not set\n", 2);
+}
+
+void	error_exit(char buf)
+{
+	if (buf == ';')
+		ft_putstr_fd("bad syntax near ';'\n", 2);
 }

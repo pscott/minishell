@@ -6,7 +6,7 @@
 /*   By: pscott <pscott@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/31 11:43:53 by pscott            #+#    #+#             */
-/*   Updated: 2019/01/31 18:37:56 by pscott           ###   ########.fr       */
+/*   Updated: 2019/01/31 21:01:19 by pscott           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,20 +23,20 @@ void	read_stdin(char **cmd, char **env)
 	mall_size = INIT_MALL_SIZE;
 	i = 0;
 	buf = 0;
-	while ((ret = read(0, &buf, 1) > 0) && buf != '\n')
+	while ((ret = read(0, &buf, 1) > 0) && buf && buf != '\n' && buf != ';')
 	{
 		*cmd = ft_realloc((void*)*cmd, ft_strlen(*cmd), &mall_size, ret);
 		ft_strncat((*cmd + i++), &buf, 1);
 	}
 	if (buf == '\n')
 		return ;
-	else if (ret == 0)
+	else if (ret == 0 || buf == ';')
 	{
-		ft_putstr_fd("exit\n", 2);
+		error_exit(buf);
 		free_cmd_env(*cmd, env);
 		exit(0);
 	}
-	else if (ret < 0)
+	else if (ret < 0 || (!buf && ret))
 		ERR_READ;
 }
 

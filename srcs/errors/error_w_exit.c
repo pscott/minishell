@@ -6,7 +6,7 @@
 /*   By: pscott <pscott@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/31 17:55:38 by pscott            #+#    #+#             */
-/*   Updated: 2019/01/31 17:58:36 by pscott           ###   ########.fr       */
+/*   Updated: 2019/01/31 20:53:05 by pscott           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,6 @@ void	error_argv(char **argv)
 
 void	error_read(void)
 {
-	ft_putstr_fd("Error: failed to read stdin\n", 2);
+	ft_putstr_fd("error: failed to read stdin\n", 2);
 	exit(1);
 }
