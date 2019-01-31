@@ -6,7 +6,7 @@
 /*   By: pscott <pscott@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/31 18:57:03 by pscott            #+#    #+#             */
-/*   Updated: 2019/01/31 19:33:20 by pscott           ###   ########.fr       */
+/*   Updated: 2019/01/31 20:07:05 by pscott           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int		mini_echo(char **argv)
 		ft_putendl("");
 		return (0);
 	}
-	else if (ac && *argv[1] == '-')
+	else if (ac && ft_strcmp(argv[1], "-") == 0)
 	{
 		ft_putstr("");
 		i++;
