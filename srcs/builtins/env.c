@@ -6,7 +6,7 @@
 /*   By: pscott <pscott@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/28 19:38:53 by pscott            #+#    #+#             */
-/*   Updated: 2019/01/31 13:07:45 by pscott           ###   ########.fr       */
+/*   Updated: 2019/01/31 16:17:37 by pscott           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,8 +115,8 @@ void	execute_command(char *possible_path, char **argv, char **env)
 		if (child_pid == 0)
 		{
 			execve(possible_path, argv, env);
-			free_argv_env(argv, env);
 			ERR_NOENT("./minishell", possible_path);
+			exit(-1);
 		}
 		else if (child_pid < 0)
 			ERR_FORK;

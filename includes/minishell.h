@@ -6,7 +6,7 @@
 /*   By: pscott <pscott@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/26 18:21:36 by pscott            #+#    #+#             */
-/*   Updated: 2019/01/31 12:35:24 by pscott           ###   ########.fr       */
+/*   Updated: 2019/01/31 14:42:43 by pscott           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,5 +68,8 @@ int		slash_in_cmd(char *cmd);
 
 void	free_cmd_env(char *cmd, char **env);
 void	free_argv_env(char **cmd_argv, char **env);
+
+char	*get_corresponding_env_setting(char *env_name, char **env,
+		unsigned int start);
 
 #endif

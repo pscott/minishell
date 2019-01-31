@@ -6,7 +6,7 @@
 /*   By: pscott <pscott@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/27 18:33:12 by pscott            #+#    #+#             */
-/*   Updated: 2019/01/30 18:22:40 by pscott           ###   ########.fr       */
+/*   Updated: 2019/01/31 17:43:43 by pscott           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ int				mini_exit(char **cmd_argv, char **env)
 		{
 			if (cmd_argv[i + 1])
 			{
-				free_argv_env(cmd_argv, env);
+				free_strarray(cmd_argv);
 				error_arguments();
 				return (0);
 			}

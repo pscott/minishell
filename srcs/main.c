@@ -6,7 +6,7 @@
 /*   By: pscott <pscott@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/31 11:43:53 by pscott            #+#    #+#             */
-/*   Updated: 2019/01/31 12:59:06 by pscott           ###   ########.fr       */
+/*   Updated: 2019/01/31 17:41:01 by pscott           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,6 +109,57 @@ void	read_stdin(char **cmd, char **env)
 		ERR_READ;
 }
 
+
+char	*get_corresponding_env_setting(char *key, char **env,
+		unsigned int start)
+{
+	unsigned int	i;
+	unsigned int	key_len;
+	char			*res;
+
+	i = -1;
+	key_len = ft_strlen(&key[start]);
+	while (env[++i])
+	{
+		if (ft_strncmp(env[i], &key[start], key_len) == 0 && env[i][key_len] == '=')
+		{
+			res = ft_strdup(&env[i][key_len + !start + start]);
+			ft_memdel((void*)&key);
+			return (res);
+		}
+	}
+	ft_memdel((void*)&key);
+	return (ft_strdup(""));
+}
+
+char	*replace_tild(char *token, char **env)
+{
+	char *res;
+
+	res = get_corresponding_env_setting(ft_strdup("HOME"), env, 0);
+	if (!*res)
+		error_not_set("HOME");
+	ft_memdel((void*)&token);
+	return (res);
+}
+
+char	**parse_input(char *value, char **env)
+{
+	char			**res;
+	unsigned int	i;
+
+	res = ft_strsplit(value, " 	");
+	i = -1;
+	while (res[++i])
+	{
+		if (res[i][0] == '$')
+			res[i] = get_corresponding_env_setting(res[i], env, 1);
+		else if (res[i][0] == '~')
+			res[i] = replace_tild(res[i], env);
+	}
+	return (res);
+}
+
 int		main(int argc, char **argv, char **env)
 {
 	char	*cmd;
@@ -116,23 +167,26 @@ int		main(int argc, char **argv, char **env)
 	char	***mini_env;
 	char	**copy_env;
 
-	(void)argc;
-	(void)argv;
-	copy_env = cpy_2d_strarray(env);
-	mini_env = &copy_env;
-	while (1)
+	if (argc > 1)
+		error_argv(argv);
+	else
 	{
-		cmd = ft_strnew(INIT_MALL_SIZE);
-		print_prompt();
-		read_stdin(&cmd, *mini_env);
-		if (!*cmd)
+		copy_env = cpy_2d_strarray(env);
+		mini_env = &copy_env;
+		while (1)
 		{
+			cmd = ft_strnew(INIT_MALL_SIZE);
+			print_prompt();
+			read_stdin(&cmd, *mini_env);
+			if (!*cmd)
+			{
+				ft_memdel((void*)&cmd);
+				continue ;
+			}
+			cmd_argv = parse_input(cmd, *mini_env);
 			ft_memdel((void*)&cmd);
-			continue ;
+			handle_cmd(cmd_argv, mini_env);
 		}
-		cmd_argv = ft_strsplit(cmd, " 	");
-		ft_memdel((void*)&cmd);
-		handle_cmd(cmd_argv, mini_env);
 	}
 	return (0);
 }

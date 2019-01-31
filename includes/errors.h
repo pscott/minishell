@@ -30,5 +30,7 @@ int		error_permi(char *cmd, char *str);
 int		error_arguments(void);
 void	error_numeric(char *str);
 void	error_no_pwd(char *str);
+void	error_not_set(char *key);
+void	error_argv(char **argv);
 
 #endif
