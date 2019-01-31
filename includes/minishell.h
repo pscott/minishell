@@ -6,17 +6,15 @@
 /*   By: pscott <pscott@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/26 18:21:36 by pscott            #+#    #+#             */
-/*   Updated: 2019/01/31 18:21:12 by pscott           ###   ########.fr       */
+/*   Updated: 2019/01/31 19:33:17 by pscott           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
-# include <signal.h>
 # include <unistd.h>
 # include <sys/stat.h>
-# include <dirent.h>
 # include <sys/wait.h>
 # include <sys/syslimits.h>
 # include "ft_printf.h"
@@ -28,6 +26,7 @@
 /*
 ** print
 */
+
 void			print_prompt(void);
 void			print_env(char **env);
 void			print_exit(void);
@@ -42,6 +41,7 @@ int				mini_exit(char **argv, char **env);
 int				mini_setenv(char **argv, char ***env);
 int				mini_env(char **argv, char **env);
 int				mini_unsetenv(char **argv, char **env);
+int				mini_echo(char **argv);
 
 /*
 ** ENV

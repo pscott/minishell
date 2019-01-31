@@ -6,7 +6,7 @@
 /*   By: pscott <pscott@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/28 18:02:44 by pscott            #+#    #+#             */
-/*   Updated: 2019/01/31 17:45:46 by pscott           ###   ########.fr       */
+/*   Updated: 2019/01/31 19:33:22 by pscott           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,5 +32,7 @@ int		handle_builtin(char **cmd_argv, char ***env)
 		return (mini_unsetenv(cmd_argv, *env));
 	if (ft_strncmp(cmd_argv[0], "cd", 3) == 0)
 		return (mini_cd(cmd_argv, *env));
+	if (ft_strncmp(cmd_argv[0], "echo", 5) == 0)
+		return (mini_echo(cmd_argv));
 	return (1);
 }
