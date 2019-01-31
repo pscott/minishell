@@ -1,11 +1,12 @@
-/* ************************************************************************** */ /*                                                                            */
+/* ************************************************************************** */
+/*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pscott <pscott@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/01/28 17:01:16 by pscott            #+#    #+#             */
-/*   Updated: 2019/01/29 19:45:02 by pscott           ###   ########.fr       */
+/*   Created: 2019/01/31 11:43:53 by pscott            #+#    #+#             */
+/*   Updated: 2019/01/31 12:16:15 by pscott           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -13,8 +14,44 @@
 
 void	free_cmd_env(char *cmd, char **env)
 {
-	ft_memdel((void*)cmd);
+	ft_memdel((void*)&cmd);
 	free_strarray(env);
+}
+
+char	**empty_env(void)
+{
+	char **res;
+
+	if (!(res = (char**)MALLOC(sizeof(*res) * (3))))
+		ERR_MEM;
+	res[0] = ft_strdup("PATH=haha");
+	res[1] = ft_strdup("SHLVL=1");
+	res[2] = NULL;
+	return (res);
+}
+
+void	increm_shlvl(char **env)
+{
+	unsigned int	i;
+	char			*new_shlvl;
+	char			*tmp;
+
+	i = 0;
+	while (env[i])
+	{
+		if (ft_strncmp("SHLVL=", env[i], 5) == 0)
+		{
+			tmp = ft_itoa(ft_atoi(&env[i][6]) + 1);
+			new_shlvl = ft_strjoin("SHLVL=", tmp);
+			ft_memdel((void*)&tmp);
+			tmp = env[i];
+			env[i] = new_shlvl;
+			ft_memdel((void*)&tmp);
+			return ;
+		}
+		i++;
+	}
+	ft_putstr_fd("Error: SHLVL not found\n", 2);
 }
 
 char	**cpy_2d_strarray(char **env)
@@ -22,8 +59,8 @@ char	**cpy_2d_strarray(char **env)
 	int		i;
 	char	**res;
 
-	if (!env)
-		return (NULL);
+	if (!env || !*env)
+		return (empty_env());
 	i = 0;
 	while (env[i])
 		i++;
@@ -33,6 +70,7 @@ char	**cpy_2d_strarray(char **env)
 	i = -1;
 	while (env[++i])
 		res[i] = ft_strdup(env[i]);
+	increm_shlvl(res);
 	return (res);
 }
 
@@ -52,7 +90,6 @@ void	read_stdin(char **cmd, char **env)
 		*cmd = ft_realloc((void*)*cmd, ft_strlen(*cmd), &mall_size, ret);
 		ft_strncat((*cmd + i++), &buf, 1);
 	}
-	ft_printf("OUI\n");
 	if (buf == '\n')
 		return ;
 	else if (ret == 0)
