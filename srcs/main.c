@@ -6,7 +6,7 @@
 /*   By: pscott <pscott@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/31 11:43:53 by pscott            #+#    #+#             */
-/*   Updated: 2019/01/31 18:18:55 by pscott           ###   ########.fr       */
+/*   Updated: 2019/01/31 18:37:56 by pscott           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void	read_stdin(char **cmd, char **env)
 char	**parse_input(char *input, char **env)
 {
 	char			**res;
-	unsigned int	i;
+	int				i;
 
 	res = ft_strsplit(input, " 	");
 	i = -1;

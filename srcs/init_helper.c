@@ -6,7 +6,7 @@
 /*   By: pscott <pscott@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/31 18:02:53 by pscott            #+#    #+#             */
-/*   Updated: 2019/01/31 18:18:55 by pscott           ###   ########.fr       */
+/*   Updated: 2019/01/31 18:29:35 by pscott           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ char	**empty_env(void)
 		ERR_MEM;
 	if (!(cwd = getcwd(NULL, PATH_MAX)))
 	{
-		error_no_pwd("error retrieving currentin directory: getcwd: cannot"
+		error_no_pwd("error retrieving current directory: getcwd: cannot"
 				"access parent directories: No such file or directory");
 	}
 	res[0] = ft_strjoin("PWD=", cwd);

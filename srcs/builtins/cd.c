@@ -6,15 +6,15 @@
 /*   By: pscott <pscott@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/31 12:17:02 by pscott            #+#    #+#             */
-/*   Updated: 2019/01/31 17:50:00 by pscott           ###   ########.fr       */
+/*   Updated: 2019/01/31 18:44:48 by pscott           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-unsigned int	get_key_position(char *key, char **env)
+int				get_key_position(char *key, char **env)
 {
-	unsigned int	i;
+	int				i;
 	unsigned int	key_len;
 
 	i = -1;
@@ -31,9 +31,9 @@ void			update_pwd(char **env)
 {
 	char			*tmp;
 	char			current[PATH_MAX];
-	unsigned int	i;
+	int				i;
 
-	if ((i = get_key_position("OLDPWD", env)) > 0)
+	if ((i = get_key_position("OLDPWD", env)) >= 0)
 	{
 		tmp = env[i];
 		env[i] = ft_strjoin("OLDPWD=", &env[get_key_position("PWD", env)][4]);
@@ -41,7 +41,7 @@ void			update_pwd(char **env)
 	}
 	else
 		error_not_set("OLDPWD");
-	if ((i = get_key_position("PWD", env)) > 0)
+	if ((i = get_key_position("PWD", env)) >= 0)
 	{
 		tmp = env[i];
 		env[i] = ft_strjoin("PWD=", getcwd(current, PATH_MAX));

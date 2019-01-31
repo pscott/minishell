@@ -6,7 +6,7 @@
 /*   By: pscott <pscott@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/30 17:01:58 by pscott            #+#    #+#             */
-/*   Updated: 2019/01/30 18:19:26 by pscott           ###   ########.fr       */
+/*   Updated: 2019/01/31 18:49:00 by pscott           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,20 +37,20 @@ int		valid_unset(char *str)
 
 void	pop_env(char **env, unsigned int j)
 {
-	unsigned int	i;
+	char			*tmp;
 
-	i = 0;
-	ft_memdel((void*)&env[j]);
+	tmp = env[j];
 	while (env[j])
 	{
 		env[j] = env[j + 1];
 		j++;
 	}
+	ft_memdel((void*)&tmp);
 }
 
 void	delete_envs(char **argv, char **env)
 {
-	unsigned int	i;
+	int				i;
 	unsigned int	j;
 
 	i = -1;
@@ -61,7 +61,8 @@ void	delete_envs(char **argv, char **env)
 		{
 			if (ft_strncmp(argv[i], env[j], ft_strlen(argv[i])) == 0)
 				pop_env(env, j);
-			j++;
+			else
+				j++;
 		}
 	}
 }
