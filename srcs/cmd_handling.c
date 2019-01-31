@@ -6,18 +6,18 @@
 /*   By: pscott <pscott@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/28 15:24:33 by pscott            #+#    #+#             */
-/*   Updated: 2019/01/30 17:55:33 by pscott           ###   ########.fr       */
+/*   Updated: 2019/01/31 12:59:19 by pscott           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static int	check_access(char *possible_path)
+int	check_access(char *path)
 {
-	if (access(possible_path, F_OK) == 0)
+	if (access(path, F_OK) == 0)
 	{
-		if (access(possible_path, X_OK) != 0)
-			error_exec(possible_path);
+		if (access(path, X_OK) != 0)
+			error_permi("./minishell", path);
 		return (1);
 	}
 	else
@@ -62,7 +62,7 @@ void	get_path(char *cmd, char **env, char *possible_path)
 		ft_strncpy(possible_path, cmd, cmd_len + 1);
 		if (!check_access(possible_path))
 		{
-			ERR_NOENT(possible_path);
+			ERR_NOENT("./minishell", possible_path);
 			*possible_path = 0;
 		}
 		return ;

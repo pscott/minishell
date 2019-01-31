@@ -22,12 +22,13 @@
 void	error_read(void);
 char	*error_mem(void);
 int		error_fork(void);
-void	error_noent(char *cmd);
+void	error_noent(char *cmd, char *str);
 void	error_exist(char *cmd);
 
 void	error_cmd_not_found(char *cmd);
-void	error_exec(char *cmd);
+int		error_permi(char *cmd, char *str);
 int		error_arguments(void);
 void	error_numeric(char *str);
+void	error_no_pwd(char *str);
 
 #endif

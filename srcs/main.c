@@ -6,7 +6,7 @@
 /*   By: pscott <pscott@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/31 11:43:53 by pscott            #+#    #+#             */
-/*   Updated: 2019/01/31 12:16:15 by pscott           ###   ########.fr       */
+/*   Updated: 2019/01/31 12:59:06 by pscott           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,12 +21,19 @@ void	free_cmd_env(char *cmd, char **env)
 char	**empty_env(void)
 {
 	char **res;
+	char *cwd;
 
 	if (!(res = (char**)MALLOC(sizeof(*res) * (3))))
 		ERR_MEM;
-	res[0] = ft_strdup("PATH=haha");
+	if (!(cwd = getcwd(NULL, PATH_MAX)))
+	{
+		error_no_pwd("error retrieving currentin directory: getcwd: cannot"
+				"access parent directories: No such file or directory");
+	}
+	res[0] = ft_strjoin("PWD=", cwd);
 	res[1] = ft_strdup("SHLVL=1");
 	res[2] = NULL;
+	free(cwd);
 	return (res);
 }
 

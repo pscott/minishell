@@ -6,7 +6,7 @@
 /*   By: pscott <pscott@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/26 18:21:36 by pscott            #+#    #+#             */
-/*   Updated: 2019/01/30 18:22:41 by pscott           ###   ########.fr       */
+/*   Updated: 2019/01/31 12:35:24 by pscott           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ void	print_exit(void);
 */
 
 void	execute_command(char *possible_path, char **argv, char **env);
+int		mini_cd(char **cmd_argv, char **env);
 int		mini_exit(char **argv, char **env);
 int		mini_setenv(char **argv, char ***env);
 int		mini_env(char **argv, char **env);
@@ -54,6 +55,7 @@ void			modify_existing_env(char *str, char **env);
 void			add_envs(char **argv, char **env);
 char			**parse_env(char **argv, char **env, unsigned int *settings);
 
+int		check_access(char *path);
 void	clean_exit(char **cmd_argv, char **env, int exit_value);
 void	handle_cmd(char **cd, char ***env);
 void	get_path(char *cmd, char **env, char *posibble_path);
