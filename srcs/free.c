@@ -1,43 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pscott <pscott@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/01/27 18:18:02 by pscott            #+#    #+#             */
+/*   Created: 2019/01/31 18:02:24 by pscott            #+#    #+#             */
 /*   Updated: 2019/01/31 18:10:22 by pscott           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	join_path(char *possible_path, char *origin, char *append)
+void	free_cmd_env(char *cmd, char **env)
 {
-	int		origin_len;
-	int		append_len;
-
-	if (!append)
-		ft_strcpy(possible_path, origin);
-	else if (!origin)
-		ft_strcpy(possible_path, append);
-	else
-	{
-		origin_len = ft_strlen(origin);
-		append_len = ft_strlen(append);
-		ft_strncpy(possible_path, origin, origin_len + 1);
-		possible_path[origin_len] = '/';
-		ft_strncpy(possible_path + origin_len + 1, append, append_len + 1);
-	}
+	ft_memdel((void*)&cmd);
+	free_strarray(env);
 }
 
-int		slash_in_cmd(char *cmd)
+void	free_strarray(char **argv)
 {
-	while (*cmd)
+	int	i;
+
+	if (!argv)
+		return ;
+	i = 0;
+	while (argv[i])
 	{
-		if (*cmd == '/')
-			return (1);
-		cmd++;
+		ft_memdel((void*)&argv[i]);
+		i++;
 	}
-	return (0);
+	ft_memdel((void*)&argv);
+}
+
+void	free_argv_env(char **cmd_argv, char **env)
+{
+	free_strarray(cmd_argv);
+	free_strarray(env);
 }

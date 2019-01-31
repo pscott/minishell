@@ -1,24 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   returns.c                                          :+:      :+:    :+:   */
+/*   error_w_return.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pscott <pscott@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/01/27 12:39:50 by pscott            #+#    #+#             */
-/*   Updated: 2019/01/27 13:00:17 by pscott           ###   ########.fr       */
+/*   Created: 2019/01/31 17:59:40 by pscott            #+#    #+#             */
+/*   Updated: 2019/01/31 17:59:40 by pscott           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "unit_test.h"
+#include "errors.h"
 
-void	*return_null(int size)
+int		error_permi(char *cmd, char *str)
 {
-	(void)size;
-	return (NULL);
+	ft_putstr_fd(cmd, 2);
+	ft_putstr_fd(": ", 2);
+	ft_putstr_fd(str, 2);
+	ft_putstr_fd(": permission denied\n", 2);
+	return (0);
 }
 
-pid_t	return_int(void)
+int		error_arguments(void)
 {
+	ft_putstr_fd("minishell: exit: too many arguments\n", 2);
 	return (-1);
 }

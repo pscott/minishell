@@ -6,7 +6,7 @@
 #    By: pscott <pscott@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/01/26 18:25:41 by pscott            #+#    #+#              #
-#    Updated: 2019/01/31 12:25:09 by pscott           ###   ########.fr        #
+#    Updated: 2019/01/31 18:10:26 by pscott           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,21 +17,20 @@ NAME	:= minishell
 
 OBJDIR			:= objects
 SRCDIR			:= srcs
-UNIT_TESTDIR	:= $(SRCDIR)/unit_test
 ERRDIR			:= $(SRCDIR)/errors
 BUILTINDIR		:= $(SRCDIR)/builtins
 
-SRC			:= main.c utils.c cmd_handling.c print_helper.c
+SRC			:= main.c utils.c cmd_handling.c print_helper.c env_helper.c \
+	execute.c init_helper.c free.c
 BUILTIN		:= builtin.c exit.c env.c setenv.c unsetenv.c cd.c
-UNIT_TEST	:= returns.c
-ERR			:= errors.c error_access.c
+ERR			:= critical_errors.c error_only_print.c error_w_exit.c \
+   error_w_return.c
 
 INCL	:= -I includes/ -I libft/includes
 
 LIBS		:= -L libft -lft
 SRCS		:= $(addprefix $(SRCDIR)/, $(SRC))
 ERRS		:= $(addprefix $(ERRDIR)/, $(ERR))
-U_TESTS		:= $(addprefix $(UNIT_TESTDIR)/, $(UNIT_TEST))
 BUILTINS	:= $(addprefix $(BUILTINDIR)/, $(BUILTIN))
 MINI		:= $(SRCS) $(U_TESTS) $(ERRS) $(BUILTINS)
 

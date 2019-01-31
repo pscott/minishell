@@ -6,7 +6,7 @@
 /*   By: pscott <pscott@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/31 12:17:02 by pscott            #+#    #+#             */
-/*   Updated: 2019/01/31 17:28:40 by pscott           ###   ########.fr       */
+/*   Updated: 2019/01/31 17:50:00 by pscott           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ unsigned int	get_key_position(char *key, char **env)
 	return (-1);
 }
 
-void	update_pwd(char **env)
+void			update_pwd(char **env)
 {
 	char			*tmp;
 	char			current[PATH_MAX];
@@ -51,7 +51,7 @@ void	update_pwd(char **env)
 		error_not_set("PWD");
 }
 
-char	*check_if_old(char **argv, char **env)
+char			*check_if_old(char **argv, char **env)
 {
 	char *res;
 
@@ -62,7 +62,15 @@ char	*check_if_old(char **argv, char **env)
 	return (res);
 }
 
-int		mini_cd(char **cmd_argv, char **env)
+void			print_errors(char **cmd_argv)
+{
+	if (!cmd_argv[1])
+		error_not_set("HOME");
+	else
+		error_not_set("OLDPWD");
+}
+
+int				mini_cd(char **cmd_argv, char **env)
 {
 	char *env_name;
 
@@ -71,12 +79,7 @@ int		mini_cd(char **cmd_argv, char **env)
 	else
 		env_name = check_if_old(cmd_argv, env);
 	if (*env_name == 0)
-	{
-		if (!cmd_argv[1])
-			error_not_set("HOME");
-		else
-			error_not_set("OLDPWD");
-	}
+		print_errors(cmd_argv);
 	else if (access(env_name, F_OK) == 0)
 	{
 		if (access(env_name, X_OK) != 0)

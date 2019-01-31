@@ -6,13 +6,13 @@
 /*   By: pscott <pscott@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/28 15:24:33 by pscott            #+#    #+#             */
-/*   Updated: 2019/01/31 16:30:22 by pscott           ###   ########.fr       */
+/*   Updated: 2019/01/31 18:02:08 by pscott           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	check_access(char *path)
+int			check_access(char *path)
 {
 	if (access(path, F_OK) == 0)
 	{
@@ -49,17 +49,15 @@ static void	cmd_in_path(char *cmd, char *env_path, char *possible_path)
 	}
 }
 
-void	get_path(char *cmd, char **env, char *possible_path)
+void		get_path(char *cmd, char **env, char *possible_path)
 {
 	int i;
-	int	cmd_len;
 
 	if (!cmd)
 		return ;
-	cmd_len = ft_strlen(cmd);
 	if (!env || !(*env) || slash_in_cmd(cmd))
 	{
-		ft_strncpy(possible_path, cmd, cmd_len + 1);
+		ft_strncpy(possible_path, cmd, ft_strlen(cmd) + 1);
 		if (!check_access(possible_path))
 		{
 			ERR_NOENT("./minishell", possible_path);
@@ -76,7 +74,7 @@ void	get_path(char *cmd, char **env, char *possible_path)
 			return ;
 		}
 	}
-	ft_strncpy(possible_path, cmd, cmd_len + 1);
+	ft_strncpy(possible_path, cmd, ft_strlen(cmd) + 1);
 }
 
 void		handle_cmd(char **cmd_argv, char ***env)

@@ -6,7 +6,7 @@
 /*   By: pscott <pscott@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/28 18:02:44 by pscott            #+#    #+#             */
-/*   Updated: 2019/01/31 12:43:00 by pscott           ###   ########.fr       */
+/*   Updated: 2019/01/31 17:45:46 by pscott           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@
 **	builtin function always free cmd_argv
 **			return 0 if cmd is part of my builtin cmds
 **			return 1 if cmd is NOT a part of my builtin cmds
-** 
 */
 
 int		handle_builtin(char **cmd_argv, char ***env)

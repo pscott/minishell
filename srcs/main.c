@@ -6,80 +6,11 @@
 /*   By: pscott <pscott@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/31 11:43:53 by pscott            #+#    #+#             */
-/*   Updated: 2019/01/31 17:41:01 by pscott           ###   ########.fr       */
+/*   Updated: 2019/01/31 18:18:55 by pscott           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-void	free_cmd_env(char *cmd, char **env)
-{
-	ft_memdel((void*)&cmd);
-	free_strarray(env);
-}
-
-char	**empty_env(void)
-{
-	char **res;
-	char *cwd;
-
-	if (!(res = (char**)MALLOC(sizeof(*res) * (3))))
-		ERR_MEM;
-	if (!(cwd = getcwd(NULL, PATH_MAX)))
-	{
-		error_no_pwd("error retrieving currentin directory: getcwd: cannot"
-				"access parent directories: No such file or directory");
-	}
-	res[0] = ft_strjoin("PWD=", cwd);
-	res[1] = ft_strdup("SHLVL=1");
-	res[2] = NULL;
-	free(cwd);
-	return (res);
-}
-
-void	increm_shlvl(char **env)
-{
-	unsigned int	i;
-	char			*new_shlvl;
-	char			*tmp;
-
-	i = 0;
-	while (env[i])
-	{
-		if (ft_strncmp("SHLVL=", env[i], 5) == 0)
-		{
-			tmp = ft_itoa(ft_atoi(&env[i][6]) + 1);
-			new_shlvl = ft_strjoin("SHLVL=", tmp);
-			ft_memdel((void*)&tmp);
-			tmp = env[i];
-			env[i] = new_shlvl;
-			ft_memdel((void*)&tmp);
-			return ;
-		}
-		i++;
-	}
-	ft_putstr_fd("Error: SHLVL not found\n", 2);
-}
-
-char	**cpy_2d_strarray(char **env)
-{
-	int		i;
-	char	**res;
-
-	if (!env || !*env)
-		return (empty_env());
-	i = 0;
-	while (env[i])
-		i++;
-	if (!(res = (char**)MALLOC(sizeof(*res) * (i + 1))))
-		ERR_MEM;
-	res[i] = NULL;
-	i = -1;
-	while (env[++i])
-		res[i] = ft_strdup(env[i]);
-	increm_shlvl(res);
-	return (res);
-}
 
 void	read_stdin(char **cmd, char **env)
 {
@@ -88,7 +19,7 @@ void	read_stdin(char **cmd, char **env)
 	int		i;
 	size_t	mall_size;
 
-	(void)env;
+	print_prompt();
 	mall_size = INIT_MALL_SIZE;
 	i = 0;
 	buf = 0;
@@ -109,46 +40,12 @@ void	read_stdin(char **cmd, char **env)
 		ERR_READ;
 }
 
-
-char	*get_corresponding_env_setting(char *key, char **env,
-		unsigned int start)
-{
-	unsigned int	i;
-	unsigned int	key_len;
-	char			*res;
-
-	i = -1;
-	key_len = ft_strlen(&key[start]);
-	while (env[++i])
-	{
-		if (ft_strncmp(env[i], &key[start], key_len) == 0 && env[i][key_len] == '=')
-		{
-			res = ft_strdup(&env[i][key_len + !start + start]);
-			ft_memdel((void*)&key);
-			return (res);
-		}
-	}
-	ft_memdel((void*)&key);
-	return (ft_strdup(""));
-}
-
-char	*replace_tild(char *token, char **env)
-{
-	char *res;
-
-	res = get_corresponding_env_setting(ft_strdup("HOME"), env, 0);
-	if (!*res)
-		error_not_set("HOME");
-	ft_memdel((void*)&token);
-	return (res);
-}
-
-char	**parse_input(char *value, char **env)
+char	**parse_input(char *input, char **env)
 {
 	char			**res;
 	unsigned int	i;
 
-	res = ft_strsplit(value, " 	");
+	res = ft_strsplit(input, " 	");
 	i = -1;
 	while (res[++i])
 	{
@@ -157,17 +54,18 @@ char	**parse_input(char *value, char **env)
 		else if (res[i][0] == '~')
 			res[i] = replace_tild(res[i], env);
 	}
+	ft_memdel((void*)&input);
 	return (res);
 }
 
 int		main(int argc, char **argv, char **env)
 {
-	char	*cmd;
+	char	*input;
 	char	**cmd_argv;
 	char	***mini_env;
 	char	**copy_env;
 
-	if (argc > 1)
+	if (argc < 1)
 		error_argv(argv);
 	else
 	{
@@ -175,16 +73,14 @@ int		main(int argc, char **argv, char **env)
 		mini_env = &copy_env;
 		while (1)
 		{
-			cmd = ft_strnew(INIT_MALL_SIZE);
-			print_prompt();
-			read_stdin(&cmd, *mini_env);
-			if (!*cmd)
+			input = ft_strnew(INIT_MALL_SIZE);
+			read_stdin(&input, *mini_env);
+			if (!*input)
 			{
-				ft_memdel((void*)&cmd);
+				ft_memdel((void*)&input);
 				continue ;
 			}
-			cmd_argv = parse_input(cmd, *mini_env);
-			ft_memdel((void*)&cmd);
+			cmd_argv = parse_input(input, *mini_env);
 			handle_cmd(cmd_argv, mini_env);
 		}
 	}
