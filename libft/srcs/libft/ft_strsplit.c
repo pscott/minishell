@@ -6,7 +6,7 @@
 /*   By: pscott <pscott@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/08 12:10:44 by pscott            #+#    #+#             */
-/*   Updated: 2019/01/28 16:59:57 by pscott           ###   ########.fr       */
+/*   Updated: 2019/01/31 18:22:03 by pscott           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static int		is_in(char h, char *str)
 	{
 		if (h == *str)
 			return (1);
-				str++;
+		str++;
 	}
 	return (0);
 }
