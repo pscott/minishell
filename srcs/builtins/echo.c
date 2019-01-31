@@ -6,7 +6,7 @@
 /*   By: pscott <pscott@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/31 18:57:03 by pscott            #+#    #+#             */
-/*   Updated: 2019/01/31 20:07:05 by pscott           ###   ########.fr       */
+/*   Updated: 2019/01/31 20:19:02 by pscott           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static int	get_ac(char **argv)
 	return (i);
 }
 
-int		mini_echo(char **argv)
+int			mini_echo(char **argv)
 {
 	int i;
 	int	ac;
