@@ -6,7 +6,7 @@
 /*   By: pscott <pscott@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/26 18:21:36 by pscott            #+#    #+#             */
-/*   Updated: 2019/01/31 19:33:17 by pscott           ###   ########.fr       */
+/*   Updated: 2019/02/01 09:34:41 by pscott           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,8 @@ void			get_path(char *cmd, char **env, char *posibble_path);
 void			join_path(char *dst, char *origin, char *append);
 int				handle_builtin(char **cmd_argv, char ***env);
 int				slash_in_cmd(char *cmd);
-char			*replace_tild(char *str, char **env);
+char			*replace_tild(char *token, char **env);
+char			*replace_dollar(char *token, char **env, int dollar_start);
 char			**cpy_2d_strarray(char **array);
 
 /*

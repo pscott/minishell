@@ -6,7 +6,7 @@
 /*   By: pscott <pscott@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/31 11:43:53 by pscott            #+#    #+#             */
-/*   Updated: 2019/02/01 09:17:09 by pscott           ###   ########.fr       */
+/*   Updated: 2019/02/01 10:25:32 by pscott           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,14 +44,19 @@ char	**parse_input(char *input, char **env)
 {
 	char			**res;
 	int				i;
+	int				j;
 
 	res = ft_strsplit(input, " 	");
 	i = -1;
 	while (res[++i])
 	{
-		if (res[i][0] == '$')
-			res[i] = get_corresponding_env_setting(res[i], env, 1);
-		else if (res[i][0] == '~')
+		j = 0;
+/*		while (res[i][j])
+		{
+			if (res[i][j] == '$')
+				res[i] = replace_dollar(res[i], env, j);
+		}*/
+		if (res[i][0] == '~')
 			res[i] = replace_tild(res[i], env);
 	}
 	ft_memdel((void*)&input);

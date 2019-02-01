@@ -1,11 +1,11 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strdup.c                                        :+:      :+:    :+:   */
+/*   ft_strndup.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pscott <pscott@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/11/07 11:44:36 by pscott            #+#    #+#             */
+/*   Created: 2019/02/01 09:36:59 by pscott            #+#    #+#             */
 /*   Updated: 2019/02/01 09:40:18 by pscott           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
@@ -13,11 +13,14 @@
 #include "libft.h"
 #include <stdlib.h>
 
-char	*ft_strdup(const char *s1)
+char		*ft_strndup(const char *s1, size_t n)
 {
-	char *res;
+	char 	*res;
+	size_t	len;
 
-	if (!(res = ft_strnew(ft_strlen(s1))))
+
+	len = ft_strlen(s1) > n ? ft_strlen(s1) : n;
+	if (!res = ft_strnew(len))
 		return (NULL);
-	return (ft_strcpy(res, s1));
+	return (ft_strncpy(res, s1, len));
 }
