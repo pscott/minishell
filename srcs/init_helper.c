@@ -6,7 +6,7 @@
 /*   By: pscott <pscott@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/31 18:02:53 by pscott            #+#    #+#             */
-/*   Updated: 2019/01/31 18:29:35 by pscott           ###   ########.fr       */
+/*   Updated: 2019/02/01 09:25:31 by pscott           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,8 +78,12 @@ char	**cpy_2d_strarray(char **env)
 char	*replace_tild(char *token, char **env)
 {
 	char *res;
+	char *tmp;
 
 	res = get_corresponding_env_setting(ft_strdup("HOME"), env, 0);
+	tmp = res;
+	res = ft_strjoin(res, &token[1]);
+	ft_memdel((void*)&tmp);
 	if (!*res)
 		error_not_set("HOME");
 	ft_memdel((void*)&token);
