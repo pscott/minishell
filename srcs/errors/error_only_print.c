@@ -6,7 +6,7 @@
 /*   By: pscott <pscott@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/31 17:56:18 by pscott            #+#    #+#             */
-/*   Updated: 2019/01/31 20:56:03 by pscott           ###   ########.fr       */
+/*   Updated: 2019/02/01 09:17:09 by pscott           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,5 +37,7 @@ void	error_not_set(char *key)
 void	error_exit(char buf)
 {
 	if (buf == ';')
-		ft_putstr_fd("bad syntax near ';'\n", 2);
+		ft_putstr_fd("bad syntax near ';'", 2);
+	else
+		ft_putendl("exit");
 }
