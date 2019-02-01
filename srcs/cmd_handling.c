@@ -6,7 +6,7 @@
 /*   By: pscott <pscott@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/28 15:24:33 by pscott            #+#    #+#             */
-/*   Updated: 2019/01/31 20:22:28 by pscott           ###   ########.fr       */
+/*   Updated: 2019/02/01 09:19:02 by pscott           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ void		get_path(char *cmd, char **env, char *possible_path)
 	{
 		if (ft_strncmp(env[i], "PATH=", 5) == 0)
 		{
-			cmd_in_path(cmd, env[i], possible_path);
+			cmd_in_path(cmd, &env[i][5], possible_path);
 			return ;
 		}
 	}
