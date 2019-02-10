@@ -14,17 +14,19 @@
 
 char	*ft_strjoin(char const *s1, char const *s2)
 {
-	char	*s3;
+	char	*res;
 
-	if (s2 == NULL)
+	if (!s1 && !s2)
 		return (NULL);
+	if (s2 == NULL)
+		return (ft_strdup(s1));
 	if (s1 == NULL)
 		return (ft_strdup(s2));
-	s3 = ft_strnew(ft_strlen(s1) + ft_strlen(s2));
-	if (s3)
+	res = ft_strnew(ft_strlen(s1) + ft_strlen(s2));
+	if (res)
 	{
-		ft_strcpy(s3, s1);
-		ft_strcat(s3, s2);
+		ft_strcpy(res, s1);
+		ft_strcat(res, s2);
 	}
-	return (s3);
+	return (res);
 }

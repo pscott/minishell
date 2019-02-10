@@ -51,11 +51,12 @@ char	**parse_input(char *input, char **env)
 	while (res[++i])
 	{
 		j = 0;
-/*		while (res[i][j])
+		while (res[i][j])
 		{
 			if (res[i][j] == '$')
 				res[i] = replace_dollar(res[i], env, j);
-		}*/
+			j++;
+		}
 		if (res[i][0] == '~')
 			res[i] = replace_tild(res[i], env);
 	}
