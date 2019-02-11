@@ -6,7 +6,7 @@
 #    By: pscott <pscott@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/01/26 18:25:41 by pscott            #+#    #+#              #
-#    Updated: 2019/01/31 18:56:41 by pscott           ###   ########.fr        #
+#    Updated: 2019/02/11 16:28:23 by pscott           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,7 +21,7 @@ ERRDIR			:= $(SRCDIR)/errors
 BUILTINDIR		:= $(SRCDIR)/builtins
 
 SRC			:= main.c utils.c cmd_handling.c print_helper.c env_helper.c \
-	execute.c init_helper.c free.c
+	execute.c init_helper.c free.c expands.c
 BUILTIN		:= builtin.c exit.c env.c setenv.c unsetenv.c cd.c echo.c
 ERR			:= critical_errors.c error_only_print.c error_w_exit.c \
    error_w_return.c

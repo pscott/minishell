@@ -6,7 +6,7 @@
 /*   By: pscott <pscott@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/28 15:24:33 by pscott            #+#    #+#             */
-/*   Updated: 2019/02/11 16:17:32 by pscott           ###   ########.fr       */
+/*   Updated: 2019/02/11 17:02:44 by pscott           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,11 @@ void		handle_cmd(char **cmd_argv, char ***env)
 {
 	char	possible_path[PATH_MAX];
 
+	if (!cmd_argv)
+	{
+		ft_putstr_fd("bad syntax near ';' \n", 2);
+		return ;
+	}
 	*possible_path = 0;
 	if (handle_builtin(cmd_argv, env) == 0)
 		return ;

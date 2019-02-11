@@ -6,7 +6,7 @@
 /*   By: pscott <pscott@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/31 11:43:53 by pscott            #+#    #+#             */
-/*   Updated: 2019/02/01 10:25:32 by pscott           ###   ########.fr       */
+/*   Updated: 2019/02/11 17:02:43 by pscott           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,19 +23,15 @@ void	read_stdin(char **cmd, char **env)
 	mall_size = INIT_MALL_SIZE;
 	i = 0;
 	buf = 0;
-	while ((ret = read(0, &buf, 1) > 0) && buf && buf != '\n' && buf != ';')
+	while ((ret = read(0, &buf, 1) > 0) && buf && buf != '\n')
 	{
 		*cmd = ft_realloc((void*)*cmd, ft_strlen(*cmd), &mall_size, ret);
 		ft_strncat((*cmd + i++), &buf, 1);
 	}
 	if (buf == '\n')
 		return ;
-	else if (ret == 0 || buf == ';')
-	{
-		error_exit(buf);
-		free_cmd_env(*cmd, env);
-		exit(0);
-	}
+	else if (ret == 0)
+		error_exit(*cmd, env);
 	else if (ret < 0 || (!buf && ret))
 		ERR_READ;
 }
@@ -46,6 +42,11 @@ char	**parse_input(char *input, char **env)
 	int				i;
 	int				j;
 
+	if (ft_strchr(input, ';'))
+	{
+		ft_memdel((void*)(&input));
+		return (NULL);
+	}
 	res = ft_strsplit(input, " 	");
 	i = -1;
 	while (res[++i])

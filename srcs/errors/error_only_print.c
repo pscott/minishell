@@ -6,7 +6,7 @@
 /*   By: pscott <pscott@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/31 17:56:18 by pscott            #+#    #+#             */
-/*   Updated: 2019/02/01 09:17:09 by pscott           ###   ########.fr       */
+/*   Updated: 2019/02/11 16:56:57 by pscott           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,10 +34,9 @@ void	error_not_set(char *key)
 	ft_putstr_fd(" not set\n", 2);
 }
 
-void	error_exit(char buf)
+void	error_exit(char *cmd, char **env)
 {
-	if (buf == ';')
-		ft_putstr_fd("bad syntax near ';'", 2);
-	else
-		ft_putendl("exit");
+	free_cmd_env(cmd, env);
+	ft_putendl("exit");
+	exit(1);
 }

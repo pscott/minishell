@@ -6,7 +6,7 @@
 /*   By: pscott <pscott@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/26 18:21:36 by pscott            #+#    #+#             */
-/*   Updated: 2019/02/01 09:34:41 by pscott           ###   ########.fr       */
+/*   Updated: 2019/02/11 16:29:46 by pscott           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@
 # define INIT_MALL_SIZE 8
 
 /*
-** print
+** PRINT
 */
 
 void			print_prompt(void);
@@ -82,4 +82,11 @@ void			free_cmd_env(char *cmd, char **env);
 void			free_argv_env(char **cmd_argv, char **env);
 int				check_access(char *path);
 
+/*
+** EXPANDS
+*/
+
+char			*get_dollar(char *arg, int *doll_len);
+char			*replace_dollar(char *arg, char **env, int dollar_start);
+char			*replace_tild(char *token, char **env);
 #endif

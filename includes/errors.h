@@ -6,7 +6,7 @@
 /*   By: pscott <pscott@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/31 18:19:48 by pscott            #+#    #+#             */
-/*   Updated: 2019/01/31 20:56:20 by pscott           ###   ########.fr       */
+/*   Updated: 2019/02/11 16:57:15 by pscott           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ void	error_numeric(char *str);
 void	error_no_pwd(char *str);
 void	error_not_set(char *key);
 void	error_argv(char **argv);
-void	error_exit(char buf);
+void	error_exit(char *cmd, char **env);
+void	free_cmd_env(char *cmd, char **env);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: pscott <pscott@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/31 12:17:02 by pscott            #+#    #+#             */
-/*   Updated: 2019/01/31 18:44:48 by pscott           ###   ########.fr       */
+/*   Updated: 2019/02/11 16:25:29 by pscott           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,9 @@ void			update_pwd(char **env)
 	if ((i = get_key_position("PWD", env)) >= 0)
 	{
 		tmp = env[i];
-		env[i] = ft_strjoin("PWD=", getcwd(current, PATH_MAX));
+		if (!getcwd(current, PATH_MAX))
+			error_no_pwd("error retrieving current directory: getcwd: cannot");
+		env[i] = ft_strjoin("PWD=", current);
 		free(tmp);
 	}
 	else
