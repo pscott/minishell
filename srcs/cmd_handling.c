@@ -6,7 +6,7 @@
 /*   By: pscott <pscott@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/28 15:24:33 by pscott            #+#    #+#             */
-/*   Updated: 2019/02/01 09:19:02 by pscott           ###   ########.fr       */
+/*   Updated: 2019/02/11 16:17:32 by pscott           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,29 +24,31 @@ int			check_access(char *path)
 		return (0);
 }
 
-static void	cmd_in_path(char *cmd, char *env_path, char *possible_path)
+static int	cmd_in_path(char *cmd, char *env_path, char *possible_path)
 {
 	char	**paths;
 	int		i;
+	int		acc;
 
 	paths = ft_strsplit(env_path, ":");
 	i = -1;
 	while (paths[++i])
 	{
 		join_path(possible_path, paths[i], cmd);
-		if (check_access(possible_path))
+		if ((acc = check_access(possible_path)))
 		{
 			free_strarray(paths);
-			return ;
+			return (acc);
 		}
 	}
 	free_strarray(paths);
 	ft_strncpy(possible_path, cmd, ft_strlen(cmd) + 1);
-	if (!check_access(possible_path))
+	if (!(acc = check_access(possible_path)))
 	{
 		error_cmd_not_found(possible_path);
 		*possible_path = 0;
 	}
+	return (acc);
 }
 
 int			get_path(char *cmd, char **env, char *possible_path)
@@ -70,10 +72,7 @@ int			get_path(char *cmd, char **env, char *possible_path)
 	while (env[++i])
 	{
 		if (ft_strncmp(env[i], "PATH=", 5) == 0)
-		{
-			cmd_in_path(cmd, &env[i][5], possible_path);
-			return (1);
-		}
+			return (cmd_in_path(cmd, &env[i][5], possible_path));
 	}
 	ft_strncpy(possible_path, cmd, ft_strlen(cmd) + 1);
 	return (1);
