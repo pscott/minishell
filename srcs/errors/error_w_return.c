@@ -18,7 +18,7 @@ int		error_permi(char *cmd, char *str)
 	ft_putstr_fd(": ", 2);
 	ft_putstr_fd(str, 2);
 	ft_putstr_fd(": permission denied\n", 2);
-	return (0);
+	return (-1);
 }
 
 int		error_arguments(void)

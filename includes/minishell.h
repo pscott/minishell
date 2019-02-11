@@ -64,7 +64,7 @@ char			*get_corresponding_env_setting(char *env_name, char **env,
 */
 
 void			handle_cmd(char **cd, char ***env);
-void			get_path(char *cmd, char **env, char *posibble_path);
+int				get_path(char *cmd, char **env, char *posibble_path);
 void			join_path(char *dst, char *origin, char *append);
 int				handle_builtin(char **cmd_argv, char ***env);
 int				slash_in_cmd(char *cmd);
