@@ -6,7 +6,7 @@
 /*   By: pscott <pscott@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/28 19:38:53 by pscott            #+#    #+#             */
-/*   Updated: 2019/01/31 17:54:04 by pscott           ###   ########.fr       */
+/*   Updated: 2019/02/12 19:08:54 by pscott           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,10 +85,9 @@ int				mini_env(char **argv, char **env)
 
 	settings = 0;
 	new_env = parse_env(argv, env, &settings);
-	get_path(argv[settings + 1], env, possible_path);
 	if (!*(argv + settings + 1))
 		print_env(new_env);
-	else
+	if (get_path(argv[settings + 1], env, possible_path) > 0)
 		execute_command(possible_path, &(argv[settings + 1]), new_env);
 	free_argv_env(argv, new_env);
 	return (0);

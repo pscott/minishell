@@ -6,7 +6,7 @@
 /*   By: pscott <pscott@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/11 16:28:08 by pscott            #+#    #+#             */
-/*   Updated: 2019/02/11 16:30:59 by pscott           ###   ########.fr       */
+/*   Updated: 2019/02/12 17:45:31 by pscott           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ char	*get_dollar(char *arg, int *doll_len)
 	char	*res;
 
 	i = 0;
-	while (arg[i] && arg[i] != '/')
+	while (arg[i] && arg[i] != '/' && arg[i] != ':')
 		i++;
 	if (!(res = ft_strnew(i)))
 		ERR_MEM;
@@ -39,7 +39,10 @@ char	*replace_dollar(char *arg, char **env, int dollar_start)
 	path = get_dollar(&arg[dollar_start + 1], &doll_len);
 	expand = get_corresponding_env_setting(path, env, 0);
 	if (!*expand)
+	{
+		ft_memdel((void*)&expand);
 		return (arg);
+	}
 	if (!(res = ft_strnew(dollar_start + ft_strlen(expand)
 					+ ft_strlen(&arg[dollar_start]))))
 		ERR_MEM;

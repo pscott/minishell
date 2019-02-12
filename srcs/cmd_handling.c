@@ -6,7 +6,7 @@
 /*   By: pscott <pscott@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/28 15:24:33 by pscott            #+#    #+#             */
-/*   Updated: 2019/02/11 17:02:44 by pscott           ###   ########.fr       */
+/*   Updated: 2019/02/12 18:29:45 by pscott           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,12 +43,8 @@ static int	cmd_in_path(char *cmd, char *env_path, char *possible_path)
 	}
 	free_strarray(paths);
 	ft_strncpy(possible_path, cmd, ft_strlen(cmd) + 1);
-	if (!(acc = check_access(possible_path)))
-	{
-		error_cmd_not_found(possible_path);
-		*possible_path = 0;
-	}
-	return (acc);
+	error_cmd_not_found(possible_path);
+	return (0);
 }
 
 int			get_path(char *cmd, char **env, char *possible_path)
@@ -74,8 +70,9 @@ int			get_path(char *cmd, char **env, char *possible_path)
 		if (ft_strncmp(env[i], "PATH=", 5) == 0)
 			return (cmd_in_path(cmd, &env[i][5], possible_path));
 	}
-	ft_strncpy(possible_path, cmd, ft_strlen(cmd) + 1);
-	return (1);
+	error_cmd_not_found(cmd);
+	*possible_path = 0;
+	return (0);
 }
 
 void		handle_cmd(char **cmd_argv, char ***env)

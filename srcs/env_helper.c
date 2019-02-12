@@ -6,7 +6,7 @@
 /*   By: pscott <pscott@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/31 17:50:16 by pscott            #+#    #+#             */
-/*   Updated: 2019/02/01 09:25:31 by pscott           ###   ########.fr       */
+/*   Updated: 2019/02/12 19:08:47 by pscott           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 int		is_env_setting(char *str)
 {
 	if (!str)
+		return (0);
+	if (*str == '=')
 		return (0);
 	str++;
 	while (*str)
@@ -34,13 +36,16 @@ int		setting_is_in_env(char *str, char **env)
 	if (!str)
 		return (0);
 	i = -1;
-	var_len = get_var_len(str);
-	while (env[++i])
+	if ((var_len = get_var_len(str)))
 	{
-		if (ft_strncmp(str, env[i], var_len) == 0)
-			return (1);
+		while (env[++i])
+		{
+			if (ft_strncmp(str, env[i], var_len) == 0)
+				return (1);
+		}
+		return (0);
 	}
-	return (0);
+	return (-1);
 }
 
 void	modify_existing_env(char *str, char **env)
