@@ -19,7 +19,7 @@ unsigned int	get_var_len(char *str)
 	if (!str)
 		return (0);
 	begin = str;
-	while (*str != '=')
+	while (*str && *str != '=')
 		str++;
 	return (str - begin);
 }
