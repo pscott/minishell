@@ -6,7 +6,7 @@
 /*   By: pscott <pscott@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/30 16:30:18 by pscott            #+#    #+#             */
-/*   Updated: 2019/02/12 18:38:57 by pscott           ###   ########.fr       */
+/*   Updated: 2019/02/19 11:55:08 by pscott           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ char	*expand_setenv(char *arg, char **env)
 	if (start && start[1] == '~')
 	{
 		tmp = get_corresponding_env_setting(ft_strdup("HOME"), env, 0);
-		if (!(res= ft_strnew(ft_strlen(arg) - 1 + ft_strlen(tmp))))
+		if (!(res = ft_strnew(ft_strlen(arg) - 1 + ft_strlen(tmp))))
 			ERR_MEM;
 		ft_strncpy(res, arg, start - arg + 1);
 		ft_strncpy(res + (start - arg + 1), tmp, ft_strlen(tmp));
